@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://115.159.98.166:3306/chinese-gang?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8
     username: root
     password: B8Ft4g?z2TgI
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
