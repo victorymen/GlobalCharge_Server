@@ -11,9 +11,10 @@
     <groupId>org</groupId>
     <artifactId>AppServer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>AppServer</name>
-    <description>AppServer</description>
-    <url/>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    <description>AppServer rest service</description>
+
 
 
     <properties>
@@ -119,6 +120,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -18,19 +18,19 @@ class AppServerApplicationTests {
     private UserinfoService userinfoService;
     @Test
     void contextLoads() {
-//        JSONObject path = userinfoService.getObject("/countries",new JSONObject());
-//        JSONArray jsonArray1 = path.getJSONObject("result").getJSONArray("countries");
-//        System.out.println(jsonArray1);
+        JSONObject path = userinfoService.getObject("/countries",new JSONObject());
+        JSONArray jsonArray1 = path.getJSONArray("countries");
+        System.out.println(jsonArray1);
 
-//       createTableAndInsertData(jsonArray1.toJSONString(), "products");
+       createTableAndInsertData(jsonArray1.toJSONString(), "countries");
 
 //        JSONObject jsonObject = userinfoService.getObject("/products",new JSONObject());
 //        jsonObject.getJSONObject("result").getJSONArray("products");
 
-        JSONObject jsonObject = userinfoService.getObject("/recharge_types",new JSONObject());
-        JSONArray jsonArray = jsonObject.getJSONArray("types");
-        System.out.println(jsonArray);
-        createTableAndInsertData(jsonArray.toJSONString(), "recharge_types");
+//        JSONObject jsonObject = userinfoService.getObject("/recharge_types",new JSONObject());
+//        JSONArray jsonArray = jsonObject.getJSONArray("types");
+//        System.out.println(jsonArray);
+//        createTableAndInsertData(jsonArray.toJSONString(), "recharge_types");
 
     }
 

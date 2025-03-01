@@ -11,9 +11,9 @@ import java.sql.Statement;
 import java.util.*;
 
 public class DynamicJsonArrayToDatabase {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/chinese-gang?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8";
+    private static final String DB_URL = "jdbc:mysql://115.159.98.166:3306/chinese-gang?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_PASSWORD = "B8Ft4g?z2TgI";
 
     public static void createTableAndInsertData(String json, String tableName) {
         try {
