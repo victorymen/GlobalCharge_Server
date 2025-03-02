@@ -21,7 +21,6 @@ class AppServerApplicationTests {
         JSONObject path = userinfoService.getObject("/countries",new JSONObject());
         JSONArray jsonArray1 = path.getJSONArray("countries");
         System.out.println(jsonArray1);
-//1
        createTableAndInsertData(jsonArray1.toJSONString(), "countries");
 
 //        JSONObject jsonObject = userinfoService.getObject("/products",new JSONObject());
