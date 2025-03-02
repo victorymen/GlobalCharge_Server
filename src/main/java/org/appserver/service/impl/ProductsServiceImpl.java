@@ -2,10 +2,14 @@ package org.appserver.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.appserver.dao.CountriesDao;
+import org.appserver.dao.ProductsCardDao;
 import org.appserver.dao.ProductsDao;
 import org.appserver.dao.RechargeTypesDao;
 import org.appserver.entity.Products;
+import org.appserver.entity.ProductsCard;
 import org.appserver.entity.RechargeTypes;
 import org.appserver.service.ProductsService;
 import org.appserver.service.UserinfoService;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.appserver.utils.utils.removeEmptyFields;
 
@@ -25,6 +30,8 @@ import static org.appserver.utils.utils.removeEmptyFields;
  */
 @Service("productsService")
 public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> implements ProductsService {
+    @Autowired
+    private ProductsCardDao productsCardDao;
 
     @Autowired
     RechargeTypesDao rechargeTypesDao;
@@ -33,6 +40,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
 
     /**
      * 根据产品类型查询产品列表 数据库版本
+     *
      * @param countryId
      * @return
      */
@@ -78,9 +86,9 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
     }
 
 
-
     /**
      * 根据产品类型查询产品列表 接口版本
+     *
      * @param countryId
      * @return
      */
@@ -95,7 +103,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
             if (!result.containsKey("reType")) {
                 result.put("reType", 0);
             }
-            object.put("content", jsonObject(countryId, object.getString("type"),result));
+            object.put("content", jsonObject(countryId, object.getString("type"), result));
         }
         result.put("content", jsonArray);
         return result;
@@ -107,10 +115,10 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
             put("type", type);
         }});
         JSONArray jsonArray = jsonObject.getJSONArray("products");
-        return groupByYys(jsonArray,result);
+        return groupByYys(jsonArray, result, countryId);
     }
 
-    private JSONArray groupByYys(JSONArray jsonArray, JSONObject result1) {
+    private JSONArray groupByYys(JSONArray jsonArray, JSONObject result1, String countryId) {
         JSONObject groupedResult = new JSONObject();
         // 遍历 jsonArray
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -133,9 +141,25 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
                 put("content", groupedResult.getJSONArray(key));
             }});
         }
+        getProductCard(result, countryId);
         return result;
     }
 
+    private void getProductCard(JSONArray products, String coutryId) {
+        QueryWrapper<ProductsCard> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("countryId", coutryId);
+        List<ProductsCard> productsCard = productsCardDao.selectList(queryWrapper);
+        for (int i = 0; i < products.size(); i++) {
+            JSONObject product = products.getJSONObject(i);
+            JSONArray contents = new JSONArray();
+            for (ProductsCard productCard : productsCard) {
+                if (product.getString("type").trim().equals(productCard.getYys().trim())) {
+                    contents.add(productCard);
+                    product.put("content", contents);
+                }
+            }
+        }
+    }
 
 }
 

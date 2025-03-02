@@ -2,6 +2,7 @@ package org.appserver.entity;
 
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @since 2025-02-18 00:02:19
  */
 @SuppressWarnings("serial")
+@Data
 public class Countries extends Model<Countries> {
     //国家 id
     private Integer id;
@@ -25,56 +27,8 @@ public class Countries extends Model<Countries> {
     private String countrycode;
     //国家号码区号
     private String areanumber;
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCname() {
-        return cname;
-    }
-
-    public void setCname(String cname) {
-        this.cname = cname;
-    }
-
-    public String getEname() {
-        return ename;
-    }
-
-    public void setEname(String ename) {
-        this.ename = ename;
-    }
-
-    public String getCurrencycode() {
-        return currencycode;
-    }
-
-    public void setCurrencycode(String currencycode) {
-        this.currencycode = currencycode;
-    }
-
-    public String getCountrycode() {
-        return countrycode;
-    }
-
-    public void setCountrycode(String countrycode) {
-        this.countrycode = countrycode;
-    }
-
-    public String getAreanumber() {
-        return areanumber;
-    }
-
-    public void setAreanumber(String areanumber) {
-        this.areanumber = areanumber;
-    }
-
+    // 开关控制
+    private int isopen;
     /**
      * 获取主键值
      *

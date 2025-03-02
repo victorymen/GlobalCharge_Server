@@ -3,6 +3,8 @@ package org.appserver.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.appserver.entity.Countries;
 
+import java.util.List;
+
 /**
  * 国家(Countries)表服务接口
  *
@@ -10,6 +12,6 @@ import org.appserver.entity.Countries;
  * @since 2025-02-18 00:02:31
  */
 public interface CountriesService extends IService<Countries> {
-
+    List<Countries> getAllCountry();
 }
 

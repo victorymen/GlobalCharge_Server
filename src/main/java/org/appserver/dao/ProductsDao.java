@@ -18,7 +18,8 @@ import org.appserver.entity.Userinfo;
 public interface ProductsDao extends BaseMapper<Products> {
 
     @Select("${sqlStr}")
-    ArrayList<Products> findArrayMap(@Param(value = "sqlStr") String sqlStr );
+    ArrayList<Products> findArrayMap(@Param(value = "sqlStr") String sqlStr);
 
+    List<Products> selectList();
 }
 

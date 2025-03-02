@@ -30,7 +30,7 @@ public class CountriesController extends ApiController {
 
     @PostMapping
     public R selectAll(@RequestBody Countries countries) {
-        return success( countriesService.listMaps());
+        return success(countriesService.getAllCountry());
     }
 
 }
