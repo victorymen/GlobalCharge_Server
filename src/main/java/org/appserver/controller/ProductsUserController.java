@@ -45,6 +45,7 @@ public class ProductsUserController extends ApiController {
 
     /**
      * 通过主键查询单条数据
+     *
      * @param id 主键
      * @return 单条数据
      */
@@ -65,7 +66,7 @@ public class ProductsUserController extends ApiController {
      */
     @PostMapping
     public R insert(@RequestBody ProductsUser productsUser) {
-        productsUser.setSernober(IDUtils.genItemId()+"");
+        productsUser.setSernober(IDUtils.genItemId() + "");
 //       JSONObject result = userinfoService.globe_Api("/topup",new JSONObject(){{
 //            put("recharge_no",productsUser.getRechargeNo());
 //            put("user_order_no",productsUser.getSernober());
@@ -75,11 +76,15 @@ public class ProductsUserController extends ApiController {
 //        if(result.getString("code").equals("10000")){
 //            productsUser.setOrderNo(result.getJSONObject("result").getString("order_no"));
 //        }
+        if (productsUser.getChargetype().equals(1)) {
+            // TODO 支付成功创建订单后，怎么把充值码返回给他？？
+        }
         return success(this.productsUserService.save(productsUser));
     }
 
     /**
      * 修改数据
+     *
      * @param productsUser 实体对象
      * @return 修改结果
      */

@@ -5,6 +5,7 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2025-02-18 01:21:16
  */
+@Data
 @SuppressWarnings("serial")
 public class ProductsUser extends Model<ProductsUser> {
     //订单idid
@@ -63,7 +65,8 @@ public class ProductsUser extends Model<ProductsUser> {
     private Integer proid;
     //平台订单号
     private String orderNo;
-
+    //充值方法
+    private String chargetype;
 
     public Integer getId() {
         return id;
