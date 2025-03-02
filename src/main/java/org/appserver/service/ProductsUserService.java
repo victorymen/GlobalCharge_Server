@@ -10,6 +10,6 @@ import org.appserver.entity.ProductsUser;
  * @since 2025-02-18 00:02:32
  */
 public interface ProductsUserService extends IService<ProductsUser> {
-
+    String saveOrder(ProductsUser productsUser);
 }
 

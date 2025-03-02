@@ -1,7 +1,6 @@
 package org.appserver.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 订单记录(ProductsUser)表控制层
@@ -79,7 +77,7 @@ public class ProductsUserController extends ApiController {
         if (productsUser.getChargetype().equals(1)) {
             // TODO 支付成功创建订单后，怎么把充值码返回给他？？
         }
-        return success(this.productsUserService.save(productsUser));
+        return success(this.productsUserService.saveOrder(productsUser));
     }
 
     /**

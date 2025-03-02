@@ -1,13 +1,12 @@
 package org.appserver.entity;
 
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 订单记录(ProductsUser)表实体类
@@ -67,6 +66,8 @@ public class ProductsUser extends Model<ProductsUser> {
     private String orderNo;
     //充值方法
     private String chargetype;
+    //订单状态
+    private String orderstatus;
 
     public Integer getId() {
         return id;
