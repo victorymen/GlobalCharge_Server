@@ -65,7 +65,7 @@ public class ProductsUser extends Model<ProductsUser> {
     //平台订单号
     private String orderNo;
     //充值方法
-    private String chargetype;
+    private int chargetype;
     //订单状态
     private String orderstatus;
 
