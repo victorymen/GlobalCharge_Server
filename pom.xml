@@ -26,6 +26,12 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.wechatpay-apiv3</groupId>
+            <artifactId>wechatpay-java</artifactId>
+            <version>0.2.16</version>
+        </dependency>
+
         <!--引入 springboot start-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
