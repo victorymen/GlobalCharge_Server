@@ -93,12 +93,17 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
      * @return
      */
     public JSONObject products(String countryId) {
+
+
+
+        //对应机构 先获取自己从产品的充值类型  无则从接口获取
+
         JSONObject jsonObject = userinfoService.getObject("/recharge_types", new JSONObject() {{
             put("country", countryId);
         }});
         JSONObject result = new JSONObject();
         JSONArray jsonArray = jsonObject.getJSONArray("types");
-        for (int i = 0; i < jsonArray.size(); i++) {
+        for (int i = 0; i < jsonArray.size(); i++) { //充值类型获取 话费 流程 密码 等充值方式 接口返回的类型
             JSONObject object = jsonArray.getJSONObject(i);
             if (!result.containsKey("reType")) {
                 result.put("reType", 0);
@@ -106,6 +111,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
             object.put("content", jsonObject(countryId, object.getString("type"), result));
         }
         result.put("content", jsonArray);
+
         return result;
     }
 
@@ -161,5 +167,43 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
         }
     }
 
+
+
+    private JSONObject aaa( String coutryId){
+        JSONObject result = new JSONObject();
+        String sqlStr = " select typeName typename from products_card where  countryId='"+coutryId+"'  GROUP BY typeName";
+        ArrayList<ProductsCard> arrayMap = productsCardDao.findArrayMap(sqlStr);
+        JSONArray array = new JSONArray();
+        arrayMap.forEach(items->{
+            array.add(new JSONObject(){{
+                put("name", items.getTypename());
+                put("content", bbb(coutryId,items.getTypename()));
+            }});
+        });
+        return result;
+    }
+
+    private JSONArray bbb(String coutryId,String typeName){
+        String sqlStr = " select operatorName from products_card where  countryId='"+coutryId+"' and typeName='"+typeName+"'  GROUP BY operatorName";
+        ArrayList<ProductsCard> arrayMap = productsCardDao.findArrayMap(sqlStr);
+        arrayMap.forEach(items->{
+
+//            array.add(new JSONObject(){{
+//                put("name", items.());
+//                put("content", bbb(coutryId,items.getTypename()));
+//            }});
+        });
+        return null;
+    }
+
+    private JSONArray ccc(String coutryId,String typeName,String operatorName){
+        String sqlStr = " select * from products_card where  countryId='"+coutryId+"' and typeName='"+typeName+"' and operatorName='"+operatorName+"' ";
+        ArrayList<ProductsCard> arrayMap = productsCardDao.findArrayMap(sqlStr);
+        arrayMap.forEach(items->{
+
+
+        });
+        return null;
+    }
 }
 
