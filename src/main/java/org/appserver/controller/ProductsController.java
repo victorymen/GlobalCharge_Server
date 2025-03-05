@@ -1,17 +1,16 @@
 package org.appserver.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.appserver.entity.Products;
 import org.appserver.service.ProductsService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * 产品(Products)表控制层
@@ -31,7 +30,7 @@ public class ProductsController extends ApiController {
 
     @PostMapping()
     public R selectOne(@RequestBody Products products ) {
-        return success(this.productsService.products(products.getCountryid()));
+        return success(productsService.products(products.getCountryid()));
     }
 
 
