@@ -119,7 +119,6 @@ public class UserinfoController extends ApiController {
         try {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
             JSONObject jsonObject = JSONObject.parseObject(response.getBody());
-
             String openid = jsonObject.getString("openid");
             Userinfo userinfo = new Userinfo();
             userinfo.setOpenid(openid);

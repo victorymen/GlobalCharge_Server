@@ -93,11 +93,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
      * @return
      */
     public JSONObject products(String countryId) {
-
-
-
         //对应机构 先获取自己从产品的充值类型  无则从接口获取
-
         JSONObject jsonObject = userinfoService.getObject("/recharge_types", new JSONObject() {{
             put("country", countryId);
         }});
@@ -110,8 +106,8 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
             }
             object.put("content", jsonObject(countryId, object.getString("type"), result));
         }
+        aaa(countryId,jsonArray);
         result.put("content", jsonArray);
-
         return result;
     }
 
@@ -147,7 +143,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
                 put("content", groupedResult.getJSONArray(key));
             }});
         }
-        getProductCard(result, countryId);
+//        getProductCard(result, countryId);
         return result;
     }
 
@@ -168,42 +164,73 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
     }
 
 
-
-    private JSONObject aaa( String coutryId){
-        JSONObject result = new JSONObject();
-        String sqlStr = " select typeName typename from products_card where  countryId='"+coutryId+"'  GROUP BY typeName";
+    private void aaa(String coutryId,JSONArray items1) {
+        String sqlStr = " select typename  from products_card where  countryId='" + coutryId + "'  GROUP BY typeName";
         ArrayList<ProductsCard> arrayMap = productsCardDao.findArrayMap(sqlStr);
-        JSONArray array = new JSONArray();
-        arrayMap.forEach(items->{
-            array.add(new JSONObject(){{
-                put("name", items.getTypename());
-                put("content", bbb(coutryId,items.getTypename()));
-            }});
-        });
-        return result;
+
+            arrayMap.forEach(items -> {
+                JSONArray array = compareArray(items.getTypename(), items1);
+                JSONObject jsonObject = new JSONObject() {{
+                    put("type", items.getTypename());
+                    put("content", bbb(coutryId, items.getTypename(),array));
+                }};
+                if(array==null){
+                    items1.add(jsonObject);
+                }
+            });
+
     }
 
-    private JSONArray bbb(String coutryId,String typeName){
-        String sqlStr = " select operatorName from products_card where  countryId='"+coutryId+"' and typeName='"+typeName+"'  GROUP BY operatorName";
+    private JSONArray bbb(String coutryId, String typeName,JSONArray items1) {
+        String sqlStr = " select operatorname yys from products_card where  countryId='" + coutryId + "' and typeName='" + typeName + "'  GROUP BY operatorName";
         ArrayList<ProductsCard> arrayMap = productsCardDao.findArrayMap(sqlStr);
-        arrayMap.forEach(items->{
 
-//            array.add(new JSONObject(){{
-//                put("name", items.());
-//                put("content", bbb(coutryId,items.getTypename()));
-//            }});
-        });
+        return new JSONArray() {{
+            arrayMap.forEach(items -> {
+                JSONObject jsonObject = compareObject(items.getYys(), items1);
+                List<ProductsCard> ccc = ccc(coutryId, typeName, items.getYys());
+                if(jsonObject==null){
+                    jsonObject.put("name", items.getYys());
+                    jsonObject.put("content", ccc);
+                }else{
+                    jsonObject.getJSONArray("content").clear();
+                    jsonObject.getJSONArray("content").addAll(ccc);
+                }
+            });
+        }};
+
+    }
+
+    private List<ProductsCard> ccc(String coutryId, String typeName, String operatorName) {
+//        String sqlStr = " select * from products_card where  countryId='" + coutryId + "' and typeName='" + typeName + "' and operatorName='" + operatorName + "' ";
+
+        QueryWrapper<ProductsCard> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("countryId", coutryId);
+        queryWrapper.eq("typeName", typeName);
+        queryWrapper.eq("operatorName", operatorName);
+        List<ProductsCard> productsCard = productsCardDao.selectList(queryWrapper);
+        return productsCard;
+    }
+
+    private JSONArray compareArray(String name,JSONArray items) {
+        for (int i = 0; i < items.size(); i++) {
+            JSONObject jsonObject = items.getJSONObject(i);
+            if(name.equals(jsonObject.getString("name"))){
+                return jsonObject.getJSONArray("content");
+            }
+        }
         return null;
     }
 
-    private JSONArray ccc(String coutryId,String typeName,String operatorName){
-        String sqlStr = " select * from products_card where  countryId='"+coutryId+"' and typeName='"+typeName+"' and operatorName='"+operatorName+"' ";
-        ArrayList<ProductsCard> arrayMap = productsCardDao.findArrayMap(sqlStr);
-        arrayMap.forEach(items->{
-
-
-        });
+    private JSONObject compareObject(String name,JSONArray items) {
+        for (int i = 0; i < items.size(); i++) {
+            JSONObject jsonObject = items.getJSONObject(i);
+            if(name.equals(jsonObject.getString("type"))){
+                return jsonObject;
+            }
+        }
         return null;
     }
+
 }
 
