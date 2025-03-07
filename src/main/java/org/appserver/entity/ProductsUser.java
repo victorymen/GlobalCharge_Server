@@ -68,6 +68,8 @@ public class ProductsUser extends Model<ProductsUser> {
     private int chargetype;
     //订单状态
     private String orderstatus;
+    //商户订单号
+    private String outTradeNo;
 
     public Integer getId() {
         return id;

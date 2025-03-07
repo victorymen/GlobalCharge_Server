@@ -61,6 +61,7 @@ public class JsapiServiceExample {
     public static void closeOrder(CloseOrderRequest request) {
         try {
             // 调用接口
+            request.setMchid(merchantId);
             service.closeOrder(request);
         } catch (HttpException e) {
             // 发送HTTP请求失败
@@ -104,6 +105,7 @@ public class JsapiServiceExample {
     public static Transaction queryOrderById(QueryOrderByIdRequest request) {
         try {
             // 调用接口
+            request.setMchid(merchantId);
             return service.queryOrderById(request);
         } catch (HttpException e) {
             // 发送HTTP请求失败
@@ -124,6 +126,7 @@ public class JsapiServiceExample {
     public static Transaction queryOrderByOutTradeNo(QueryOrderByOutTradeNoRequest request) {
         try {
             // 调用接口
+            request.setMchid(merchantId);
             return service.queryOrderByOutTradeNo(request);
         } catch (HttpException e) {
             // 发送HTTP请求失败
