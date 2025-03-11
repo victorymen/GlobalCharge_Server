@@ -18,9 +18,9 @@ mybatis-plus:
 app:
   appid: "wx316be3df54cf177d"
   secret: "2a3ea94ea5ed6dde088468fb7874191b"
-  imageURL: "http://115.159.98.166"
+  imageURL: "https://wechatglow.online"
   wxzfgy: 'PUB_KEY_ID_0117087738922025030500337900002025'
 yll:
   APP_KEY: "c33bd86351174a049f4b65c1a9a51fc1"
   uid: "Men_api001"
-  url: "http://115.159.98.166/globe_api/public"
+  url: "https://wechatglow.online/globe_api/public"

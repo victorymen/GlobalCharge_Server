@@ -41,6 +41,20 @@ public class ProductsUserController extends ApiController {
     }
 
     /**
+     * 分页查询所有数据
+     *
+     * @param productsUser 查询实体
+     * @return 所有数据
+     */
+    @PostMapping("/rechargeNo")
+    public R rechargeNo(@RequestBody  ProductsUser productsUser) {
+        QueryWrapper<ProductsUser> queryWrapper = new QueryWrapper<>(productsUser);
+        queryWrapper.select("DISTINCT recharge_no"); // 假设手机号的字段名为 phone
+        return success(this.productsUserService.list(queryWrapper));
+    }
+
+
+    /**
      * 通过主键查询单条数据
      *
      * @param id 主键

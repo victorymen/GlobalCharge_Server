@@ -29,9 +29,9 @@ public class ProductsUserServiceImpl extends ServiceImpl<ProductsUserDao, Produc
     public String saveOrder(ProductsUser productsUser) {
         productsUser.setOrderstatus(OrderStatus.PAID.getCode());
         productsUserDao.insert(productsUser);
-        if (productsUser.getChargetype() == 0) {
+        if (productsUser.getChargetype() == "0") {
             chargeByXiaoLa(productsUser);
-        } else if (productsUser.getChargetype() == 1) {
+        } else if (productsUser.getChargetype() == "1") {
             chargeByCard(productsUser);
         }
         productsUser.setOrderstatus(OrderStatus.CHARGEING.getCode());
