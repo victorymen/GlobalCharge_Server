@@ -4,6 +4,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
+/**
+ * 小啦啦接口签名生成器
+ */
 public class SignGenerator {
 
     /**
@@ -73,14 +76,5 @@ public class SignGenerator {
         return hexString.toString();
     }
 
-    // 示例调用
-    public static void main(String[] args) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("uid", "Men_api001");
-        params.put("sign", "0"); // sign字段将被排除
-        String appKey = "c33bd86351174a049f4b65c1a9a51fc1";
-        String sign = generateSign(params, appKey);
-        System.out.println("生成的签名: " + sign);
 
-    }
 }

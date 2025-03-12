@@ -52,13 +52,6 @@ public class JsapiServiceExample {
         } else {
             System.out.println("当前系统不是 Linux");
         }
-//        KeyGenerator keyGen = null;
-//        try {
-//            keyGen = KeyGenerator.getInstance("AES");
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new RuntimeException(e);
-//        }
-//        keyGen.init(128);
         // 初始化商户配置
         Config config = new RSAAutoCertificateConfig.Builder()
                 .merchantId(merchantId)
