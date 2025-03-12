@@ -49,4 +49,15 @@ public class WxApi extends ApiController {
     }
 
 
+    /**
+     * 回调接口触发  用于支付是相应
+     * @param
+     * @return
+     */
+    @PostMapping("closeOrderTradeNo")
+    public void closeOrderTradeNo()  {
+        //todo 回调接口触发  用于支付是相应处理逻辑   还没想好支付成功后这里写什么
+        System.out.println("回调接口触发  用于支付是相应处理逻辑   还没想好支付成功后这里写什么 ");
+    }
+
 }

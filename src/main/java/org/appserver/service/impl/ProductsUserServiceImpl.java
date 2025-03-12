@@ -27,14 +27,14 @@ public class ProductsUserServiceImpl extends ServiceImpl<ProductsUserDao, Produc
     CardStockDao cardStockDao;
 
     public String saveOrder(ProductsUser productsUser) {
-        productsUser.setOrderstatus(OrderStatus.PAID.getCode());
+//        productsUser.setSernoberstate(OrderStatus.PAID.getCode());
         productsUserDao.insert(productsUser);
         if (productsUser.getChargetype() == "0") {
             chargeByXiaoLa(productsUser);
         } else if (productsUser.getChargetype() == "1") {
             chargeByCard(productsUser);
         }
-        productsUser.setOrderstatus(OrderStatus.CHARGEING.getCode());
+        productsUser.setSernoberstate(OrderStatus.CHARGEING.getCode());
         productsUserDao.updateById(productsUser);
         return null;
     }

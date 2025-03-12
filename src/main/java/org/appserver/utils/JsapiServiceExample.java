@@ -9,6 +9,9 @@ import com.wechat.pay.java.service.payments.jsapi.JsapiServiceExtension;
 import com.wechat.pay.java.service.payments.jsapi.model.*;
 import com.wechat.pay.java.service.payments.model.Transaction;
 
+import javax.crypto.KeyGenerator;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * JsapiService使用示例
  */
@@ -26,6 +29,7 @@ public class JsapiServiceExample {
      * 商户API私钥路径
      */
     public static final String privateKeyPath = "E:\\workYHC\\GlobalCharge_Server\\src\\main\\resources\\apiclient\\apiclient_key.pem";
+    public static final String privateKeyPath1 = "/home/JAVA_APP/apiclient_key.pem";
 
     /**
      * 商户证书序列号
@@ -40,10 +44,25 @@ public class JsapiServiceExample {
     public static JsapiServiceExtension service;
 
     static {
+        String os = System.getProperty("os.name");
+        String path=privateKeyPath;
+        if (os != null && os.toLowerCase().startsWith("linux")) {
+            path=privateKeyPath1;
+            System.out.println("当前系统是 Linux");
+        } else {
+            System.out.println("当前系统不是 Linux");
+        }
+//        KeyGenerator keyGen = null;
+//        try {
+//            keyGen = KeyGenerator.getInstance("AES");
+//        } catch (NoSuchAlgorithmException e) {
+//            throw new RuntimeException(e);
+//        }
+//        keyGen.init(128);
         // 初始化商户配置
         Config config = new RSAAutoCertificateConfig.Builder()
                 .merchantId(merchantId)
-                .privateKeyFromPath(privateKeyPath)
+                .privateKeyFromPath(path)
                 .merchantSerialNumber(merchantSerialNumber)
                 .apiV3Key(apiV3Key)
                 .build();
