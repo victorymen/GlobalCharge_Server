@@ -28,7 +28,7 @@ public class WxApi extends ApiController {
      * 微信支付订单号查询订单
      */
     @PostMapping("queryOrderById")
-    public  Transaction queryOrderById(QueryOrderByIdRequest request){
+    public  Transaction queryOrderById(@RequestBody QueryOrderByIdRequest request){
         return JsapiServiceExample.queryOrderById(request);
     }
 
@@ -36,7 +36,7 @@ public class WxApi extends ApiController {
      * 商户订单号查询订单
      */
     @PostMapping("queryOrderByOutTradeNo")
-    public  Transaction queryOrderByOutTradeNo(QueryOrderByOutTradeNoRequest request) {
+    public  Transaction queryOrderByOutTradeNo(@RequestBody QueryOrderByOutTradeNoRequest request) {
         return JsapiServiceExample.queryOrderByOutTradeNo(request);
     }
 
@@ -44,7 +44,7 @@ public class WxApi extends ApiController {
      * 关闭订单
      */
     @PostMapping("closeOrder")
-    public  void closeOrder(CloseOrderRequest request) {
+    public  void closeOrder( @RequestBody CloseOrderRequest request) {
         JsapiServiceExample.closeOrder(request);
     }
 

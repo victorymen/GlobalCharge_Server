@@ -20,7 +20,7 @@ public class Products extends Model<Products> {
     //国家
     private String cname;
 
-    private String typename;
+    private String typeName;
     //产品描述
     private String description;
     //产品名
@@ -64,12 +64,12 @@ public class Products extends Model<Products> {
         this.cname = cname;
     }
 
-    public String getTypename() {
-        return typename;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setTypename(String typename) {
-        this.typename = typename;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public String getDescription() {

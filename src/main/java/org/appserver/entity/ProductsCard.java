@@ -16,7 +16,7 @@ public class ProductsCard {
     //国家
     private String cname;
 
-    private String typename;
+    private String typeName;
     //产品描述
     private String description;
     //产品名

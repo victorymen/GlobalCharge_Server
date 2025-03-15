@@ -165,14 +165,14 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
 
 
     private void aaa(String coutryId,JSONArray items1) {
-        String sqlStr = " select typename  from products_card where  countryId='" + coutryId + "'  GROUP BY typeName";
+        String sqlStr = " select type_name typeName  from products_card where  countryId='" + coutryId + "'  GROUP BY type_name";
         ArrayList<ProductsCard> arrayMap = productsCardDao.findArrayMap(sqlStr);
 
             arrayMap.forEach(items -> {
-                JSONArray array = compareArray(items.getTypename(), items1);
+                JSONArray array = compareArray(items.getTypeName(), items1);
                 JSONObject jsonObject = new JSONObject() {{
-                    put("type", items.getTypename());
-                    put("content", bbb(coutryId, items.getTypename(),array));
+                    put("type", items.getTypeName());
+                    put("content", bbb(coutryId, items.getTypeName(),array));
                 }};
                 if(array==null){
                     items1.add(jsonObject);
@@ -182,7 +182,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
     }
 
     private JSONArray bbb(String coutryId, String typeName,JSONArray items1) {
-        String sqlStr = " select operatorname yys from products_card where  countryId='" + coutryId + "' and typeName='" + typeName + "'  GROUP BY operatorName";
+        String sqlStr = " select operatorname yys from products_card where  countryId='" + coutryId + "' and type_name='" + typeName + "'  GROUP BY operatorName";
         ArrayList<ProductsCard> arrayMap = productsCardDao.findArrayMap(sqlStr);
 
         return new JSONArray() {{
@@ -203,10 +203,9 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
 
     private List<ProductsCard> ccc(String coutryId, String typeName, String operatorName) {
 //        String sqlStr = " select * from products_card where  countryId='" + coutryId + "' and typeName='" + typeName + "' and operatorName='" + operatorName + "' ";
-
         QueryWrapper<ProductsCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("countryId", coutryId);
-        queryWrapper.eq("typeName", typeName);
+        queryWrapper.eq("type_name", typeName);
         queryWrapper.eq("operatorName", operatorName);
         List<ProductsCard> productsCard = productsCardDao.selectList(queryWrapper);
         return productsCard;

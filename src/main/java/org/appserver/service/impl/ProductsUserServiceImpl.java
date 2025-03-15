@@ -29,12 +29,21 @@ public class ProductsUserServiceImpl extends ServiceImpl<ProductsUserDao, Produc
     public String saveOrder(ProductsUser productsUser) {
 //        productsUser.setSernoberstate(OrderStatus.PAID.getCode());
         productsUserDao.insert(productsUser);
-        if (productsUser.getChargetype() == "0") {
-            chargeByXiaoLa(productsUser);
-        } else if (productsUser.getChargetype() == "1") {
-            chargeByCard(productsUser);
+        if(StringUtils.isNotEmpty(productsUser.getSernoberstate())){
+            return null;
         }
-        productsUser.setSernoberstate(OrderStatus.CHARGEING.getCode());
+        productsUser.setSernoberstate(OrderStatus.PAID.getCode());
+        if (StringUtils.isNotEmpty(productsUser.getChargetype())) {//含此字段的为自己维护逻辑及充值方式
+            if (productsUser.getChargetype() == "0") {//接口充值
+            } else if (productsUser.getChargetype() == "1") {//瓜瓜卡短信
+                return  chargeByCard(productsUser);
+            } else if (productsUser.getChargetype() == "2") {//瓜瓜卡打电话
+                return  chargeByCard(productsUser);
+            }
+        }else{//第三方接口充值
+            chargeByXiaoLa(productsUser);
+            productsUser.setSernoberstate(OrderStatus.COMPLETED.getCode());
+        }
         productsUserDao.updateById(productsUser);
         return null;
     }
