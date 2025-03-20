@@ -66,10 +66,14 @@ public class ProductsUser extends Model<ProductsUser> {
     private String orderNo;
     //充值方法
     private String chargetype;
+
+    private String cardPasswd;
 //    //订单状态
 //    private String orderstatus;
     //商户订单号
     private String outTradeNo;
+
+
 
     public Integer getId() {
         return id;

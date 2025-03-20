@@ -66,6 +66,17 @@ public class ProductsUserController extends ApiController {
     }
 
 
+    /**
+     * 支付成功后 根据订单编号重新获取订单信息 进行回显
+     * @param productsUser
+     * @return
+     */
+    @PostMapping("/outTradeNoOne")
+    public R outTradeNoOne(@RequestBody ProductsUser productsUser) {
+        return success( productsUserService.getOne(new QueryWrapper<ProductsUser>().eq("out_trade_no", productsUser.getOutTradeNo())));
+    }
+
+
     @Resource
     private UserinfoService userinfoService;
 
@@ -77,8 +88,11 @@ public class ProductsUserController extends ApiController {
      */
     @PostMapping
     public R insert(@RequestBody ProductsUser productsUser) {
-        return success(this.productsUserService.saveOrder(productsUser));
+        this.productsUserService.saveOrder(productsUser);
+        return success("ok");
     }
+
+
 
     /**
      * 修改数据
@@ -90,6 +104,9 @@ public class ProductsUserController extends ApiController {
     public R update(@RequestBody ProductsUser productsUser) {
         return success(this.productsUserService.updateById(productsUser));
     }
+
+
+
 
 
 }

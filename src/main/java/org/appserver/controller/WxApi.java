@@ -1,13 +1,15 @@
 package org.appserver.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.wechat.pay.java.service.payments.jsapi.model.*;
 import com.wechat.pay.java.service.payments.model.Transaction;
+import org.appserver.entity.ProductsUser;
+import org.appserver.service.ProductsUserService;
 import org.appserver.utils.JsapiServiceExample;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/api/wxApi")
@@ -49,15 +51,22 @@ public class WxApi extends ApiController {
     }
 
 
+
     /**
-     * 回调接口触发  用于支付是相应
+     * 服务对象
+     */
+    @Resource
+    private ProductsUserService productsUserService;
+    /**
+     * 回调接口触发  执行充值命令  自动防止重复请求
      * @param
      * @return
      */
     @PostMapping("closeOrderTradeNo")
-    public void closeOrderTradeNo()  {
-        //todo 回调接口触发  用于支付是相应处理逻辑   还没想好支付成功后这里写什么
-        System.out.println("回调接口触发  用于支付是相应处理逻辑   还没想好支付成功后这里写什么 ");
+    public void closeOrderTradeNo(@RequestParam String outTradeNo)  {   //支付成功后回调这里接口     其它接口访问存在断点时 会重复请求
+        ProductsUser productsUser = productsUserService.getOne(new QueryWrapper<ProductsUser>().eq("out_trade_no", outTradeNo));
+        productsUser.setSernoberstate(null);
+        productsUserService.saveOrder(productsUser);
     }
 
 }

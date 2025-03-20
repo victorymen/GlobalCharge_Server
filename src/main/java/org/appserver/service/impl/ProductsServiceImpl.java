@@ -104,23 +104,23 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
             if (!result.containsKey("reType")) {
                 result.put("reType", 0);
             }
-            object.put("content", jsonObject(countryId, object.getString("type"), result));
+            object.put("content", jsonObject(countryId, object.getString("type"),object.getString("name"), result));
         }
         aaa(countryId,jsonArray);
         result.put("content", jsonArray);
         return result;
     }
 
-    private JSONArray jsonObject(String countryId, String type, JSONObject result) {
+    private JSONArray jsonObject(String countryId, String type,String typeName, JSONObject result) {
         JSONObject jsonObject = userinfoService.getObject("/products", new JSONObject() {{
             put("country", countryId);
             put("type", type);
         }});
         JSONArray jsonArray = jsonObject.getJSONArray("products");
-        return groupByYys(jsonArray, result, countryId);
+        return groupByYys(jsonArray, result,typeName, countryId);
     }
 
-    private JSONArray groupByYys(JSONArray jsonArray, JSONObject result1, String countryId) {
+    private JSONArray groupByYys(JSONArray jsonArray, JSONObject result1,String typeName, String countryId) {
         JSONObject groupedResult = new JSONObject();
         // 遍历 jsonArray
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -128,6 +128,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsDao, Products> impl
                 result1.put("yysType", 0);
             }
             JSONObject item = jsonArray.getJSONObject(i);
+            item.put("typeName", typeName);
             String yysValue = item.getString("yys");
             // 创建一个内容数组，如果 yysValue 不存在则初始化
             if (!groupedResult.containsKey(yysValue)) {
